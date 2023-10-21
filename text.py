@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from time import sleep, gmtime, strftime
+from time import sleep, localtime, strftime
 
 from PIL import Image
 from PIL import ImageDraw
@@ -12,7 +12,7 @@ def main ():
   IP = "IP: "
   CPU = "% CPU: "
   RAM = "% RAM: "
-  TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
+  TIME = strftime("%d %b %Y %H:%M:%S", localtime())
 
   disp = ST7789.ST7789(
     height=240,
@@ -49,6 +49,7 @@ def main ():
     draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
     disp.display(img)
     sleep(5)
+    disp.reset()
 
 try:
   main()
