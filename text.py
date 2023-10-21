@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from time import sleep, localtime, strftime
+import threading
 
 from PIL import Image
 from PIL import ImageDraw
@@ -8,7 +9,7 @@ from PIL import ImageFont
 import ST7789
 
 
-def main ():
+def main():
   IP = "IP: "
   CPU = "% CPU: "
   RAM = "% RAM: "
@@ -49,9 +50,9 @@ def main ():
     draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
     disp.display(img)
     sleep(5)
-    disp.reset()
 
 try:
-  main()
+  t = threading.Thread(target=main)
+  t.start()
 except KeyboardInterrupt:
   exit(1)
