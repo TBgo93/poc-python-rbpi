@@ -8,6 +8,20 @@ from PIL import ImageFont
 
 import ST7789
 
+def init_display():
+  return ST7789.ST7789(
+    height=240,
+    width=240,
+    rotation=90,
+    port=0,
+    cs=1,
+    dc=9,
+    backlight=13,
+    spi_speed_hz=60 * 1000 * 1000,
+    offset_left=0,
+    offset_top=0
+  )
+
 
 def display_text(WIDTH, HEIGHT):
   IP = "IP: "
@@ -31,18 +45,8 @@ def display_text(WIDTH, HEIGHT):
   return img
 
 def main():
-  disp = ST7789.ST7789(
-    height=240,
-    width=240,
-    rotation=90,
-    port=0,
-    cs=1,
-    dc=9,
-    backlight=13,
-    spi_speed_hz=60 * 1000 * 1000,
-    offset_left=0,
-    offset_top=0
-  )
+  # Create instance
+  disp = init_display()
 
   # Initialize display.
   disp.begin()
@@ -53,7 +57,7 @@ def main():
   while True:
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
-    sleep(5)
+    sleep(1)
 
 try:
   t = threading.Thread(target=main)
