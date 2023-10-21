@@ -8,13 +8,12 @@ from PIL import ImageFont
 import ST7789
 
 
-IP = "IP: "
-CPU = "% CPU: "
-RAM = "% RAM: "
-TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
-
-
 def main ():
+  IP = "IP: "
+  CPU = "% CPU: "
+  RAM = "% RAM: "
+  TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
+
   disp = ST7789.ST7789(
     height=240,
     width=240,
@@ -40,7 +39,7 @@ def main ():
 
   font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
 
-  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 12)
+  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 14)
 
   while True:
     draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
