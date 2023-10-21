@@ -11,7 +11,7 @@ import ST7789
 IP = "IP: "
 CPU = "% CPU: "
 RAM = "% RAM: "
-TIME = strftime("DATETIME: %d %b %Y %H:%M:%S", gmtime())
+TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
 
 
 def main ():
@@ -40,12 +40,14 @@ def main ():
 
   font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
 
+  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 12)
+
   while True:
     draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
     draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
     draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
     draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
-    draw.text((5, 220), TIME, font=font, fill=(255, 255, 255))
+    draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
     disp.display(img)
 
 try:
