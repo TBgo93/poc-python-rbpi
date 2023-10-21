@@ -14,8 +14,8 @@ MESSAGE = "Hello World!"
 
 disp = ST7789.ST7789(
   height=240,
-  width=320,
-  rotation=0,
+  width=240,
+  rotation=90,
   port=0,
   cs=1,
   dc=9,
