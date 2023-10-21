@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from time import gmtime, strftime
 
 from PIL import Image
 from PIL import ImageDraw
@@ -10,6 +11,7 @@ import ST7789
 IP = "IP: "
 CPU = "% CPU: "
 RAM = "% RAM: "
+TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
 
 def __main__ ():
   disp = ST7789.ST7789(
@@ -42,6 +44,7 @@ def __main__ ():
     draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
     draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
     draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
+    draw.text((5, 220), TIME, font=font, fill=(255, 255, 255))
     disp.display(img)
 
 try:
