@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 
 from PIL import Image
 from PIL import ImageDraw
@@ -38,7 +39,14 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 size_x, size_y = draw.textsize(MESSAGE, font)
 
+text_x = disp.width
+text_y = (disp.height - size_y) // 2
+
+t_start = time.time()
+
 while True:
+  x = (time.time() - t_start) * 100
+  x %= (size_x + disp.width)
   draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
-  draw.text((0, 0), MESSAGE, font=font, fill=(255, 255, 255))
+  draw.text((int(text_x - x), text_y), MESSAGE, font=font, fill=(255, 255, 255))
   disp.display(img)
