@@ -11,7 +11,7 @@ import ST7789
 IP = "IP: "
 CPU = "% CPU: "
 RAM = "% RAM: "
-TIME = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+TIME = strftime("DATETIME: %d %b %Y %H:%M:%S", gmtime())
 
 
 def main ():
