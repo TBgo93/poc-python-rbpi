@@ -9,7 +9,7 @@ from PIL import ImageFont
 import ST7789
 
 
-def main():
+def display():
   IP = "IP: "
   CPU = "% CPU: "
   RAM = "% RAM: "
@@ -42,13 +42,16 @@ def main():
 
   font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 14)
 
+  draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
+  draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
+  draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
+  draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
+  draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
+  disp.display(img)
+
+def main():
   while True:
-    draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
-    draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
-    draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
-    draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
-    draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
-    disp.display(img)
+    display()
     sleep(5)
 
 try:
