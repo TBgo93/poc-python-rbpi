@@ -47,6 +47,6 @@ def main ():
     disp.display(img)
 
 try:
-  main
+  main()
 except KeyboardInterrupt:
   exit(1)
