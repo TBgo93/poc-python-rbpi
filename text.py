@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from time import gmtime, strftime
+# from time import gmtime, strftime
 
 from PIL import Image
 from PIL import ImageDraw
@@ -11,7 +11,9 @@ import ST7789
 IP = "IP: "
 CPU = "% CPU: "
 RAM = "% RAM: "
-TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
+# TIME = strftime("%d %b %Y %H:%M:%S", gmtime())
+TIME = "Hora: "
+
 
 def __main__ ():
   disp = ST7789.ST7789(
