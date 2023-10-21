@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import time
 
 from PIL import Image
 from PIL import ImageDraw
@@ -8,7 +7,10 @@ from PIL import ImageFont
 import ST7789
 
 
-MESSAGE = "Hello World!"
+IP = "IP: "
+CPU = "% CPU: "
+RAM = "% RAM: "
+
 
 # Create ST7789 LCD display class.
 
@@ -37,16 +39,9 @@ draw = ImageDraw.Draw(img)
 
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
 
-size_x, size_y = draw.textsize(MESSAGE, font)
-
-text_x = disp.width
-text_y = (disp.height - size_y) // 2
-
-t_start = time.time()
-
 while True:
-  x = (time.time() - t_start) * 100
-  x %= (size_x + disp.width)
   draw.rectangle((0, 0, disp.width, disp.height), (0, 0, 0))
-  draw.text((int(text_x - x), text_y), MESSAGE, font=font, fill=(255, 255, 255))
+  draw.text((5, 5), IP, font=font, fill=(255, 255, 255))
+  draw.text((5, 35), CPU, font=font, fill=(255, 255, 255))
+  draw.text((5, 65), RAM, font=font, fill=(255, 255, 255))
   disp.display(img)
