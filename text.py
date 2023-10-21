@@ -7,14 +7,14 @@ from PIL import ImageFont
 from ST7789 import ST7789
 
 
-MESSAGE = "Hello World! How are you today?"
+MESSAGE = "Hello World!"
 
 # Create ST7789 LCD display class.
 
 disp = ST7789(
   height=240,
   width=320,
-  rotation=180,
+  rotation=90,
   port=0,
   cs=1,
   dc=9,
@@ -34,7 +34,7 @@ img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
 
 draw = ImageDraw.Draw(img)
 
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
+font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
 
 size_x, size_y = draw.textsize(MESSAGE, font)
 
