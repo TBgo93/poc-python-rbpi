@@ -65,7 +65,8 @@ def display_empty():
 
   draw = ImageDraw.Draw(img)
   draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
-  disp.display(img)
+  while True:
+    disp.display(img)
 
 def main():
   # Create instance
