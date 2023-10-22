@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from time import sleep, localtime, strftime
 import threading
+import psutil
 
 from PIL import Image
 from PIL import ImageDraw
@@ -24,9 +25,13 @@ def init_display():
 
 
 def display_text(WIDTH, HEIGHT):
-  IP = "IP: "
-  CPU = "% CPU: "
-  RAM = "% RAM: "
+  VM = psutil.virtual_memory()
+  NET = psutil.net_if_addrs()
+  WLAN = NET.get("wlan0")[0]
+
+  IP = "IP: " + WLAN.address
+  CPU = "% Uso de CPU: " + psutil.cpu_percent()
+  RAM = "% Uso de RAM: " + VM.percent
   TIME = strftime("%d %b %Y %H:%M:%S", localtime())
 
   img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
