@@ -113,7 +113,6 @@ try:
   t.start()
   t.join()
 except (KeyboardInterrupt, SystemExit):
-  print("[*] Exiting...")
   display_empty()
   exit_event.set()
   exit(1)
