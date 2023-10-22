@@ -24,14 +24,8 @@ def handle_button(pin):
 
   if label == "X":
     print("X: Power OFF")
-    display_empty()
-    exit_event.set()
-    subprocess.call(['shutdown', '-h', 'now'], shell=False)
   if label == "Y":
     print("Y: Reboot")
-    display_empty()
-    exit_event.set()
-    subprocess.call(['shutdown', '-r', 'now'], shell=False)
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
