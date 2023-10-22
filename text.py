@@ -49,6 +49,7 @@ def display_text(WIDTH, HEIGHT):
   draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
   draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
   draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
+  draw.text((5, 91), TEMP, font=font, fill=(255, 255, 255))
   draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
   return img
 
