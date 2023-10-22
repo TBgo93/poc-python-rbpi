@@ -66,8 +66,7 @@ def display_empty():
   HEIGHT = disp.height
   img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
 
-  draw = ImageDraw.Draw(img)
-  draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
+  ImageDraw.Draw(img)
   disp.display(img)
 
 def main():
