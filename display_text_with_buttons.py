@@ -9,8 +9,29 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 import ST7789
+import signal
+import RPi.GPIO as GPIO
 
 exit_event = threading.Event()
+
+BUTTONS = [5, 6, 16, 24]
+LABELS = ['A', 'B', 'X', 'Y']
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUTTONS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+def handle_button(pin):
+  label = LABELS[BUTTONS.index(pin)]
+
+  if label == "X":
+    print("RemoteControl: X")
+  if label == "Y":
+    print("RemoteControl: Y")
+  if label == "A":
+    print("RemoteControl: A")
+  if label == "B":
+    print("RemoteControl: B")
+  
+  print("Button press detected on pin: {} label: {}".format(pin, label))
 
 def init_display():
   return ST7789.ST7789(
@@ -70,6 +91,10 @@ def display_empty():
 
 
 def main():
+  # Handle buttons
+  for pin in BUTTONS:
+    GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
+
   # Create instance
   disp = init_display()
 
