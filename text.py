@@ -32,7 +32,7 @@ def display_text(WIDTH, HEIGHT):
   IP = "IP: " + str(WLAN.address)
   CPU = "% Uso de CPU: " + str(cpu_percent())
   RAM = "% Uso de RAM: " + str(VM.percent)
-  TIME = strftime("%d %b %Y %H:%M:%S", localtime())
+  TIME = strftime("%d/%m/%Y %H:%M:%S", localtime())
 
   img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
 
