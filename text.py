@@ -2,6 +2,7 @@
 from time import sleep, localtime, strftime
 import threading
 from psutil import virtual_memory, net_if_addrs, cpu_percent
+from sys import exit
 
 from PIL import Image
 from PIL import ImageDraw
@@ -65,8 +66,7 @@ def display_empty():
 
   draw = ImageDraw.Draw(img)
   draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
-  while True:
-    disp.display(img)
+  disp.display(img)
 
 def main():
   # Create instance
@@ -88,4 +88,4 @@ try:
   t.start()
 except KeyboardInterrupt:
   display_empty()
-  exit(1)
+  exit(0)
