@@ -2,7 +2,6 @@
 import ST7789
 import RPi.GPIO as GPIO
 import threading
-import signal
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
@@ -87,11 +86,8 @@ def display_empty():
   ImageDraw.Draw(img)
   disp.display(img)
 
-def signal_handler(signum, frame):
-  exit_event.set()
 
 def main():
-  signal.signal(signal.SIGINT, signal_handler)
   # Handle buttons
   for pin in BUTTONS:
     GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
