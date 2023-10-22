@@ -86,6 +86,5 @@ try:
   t = threading.Thread(target=main)
   t.start()
 except KeyboardInterrupt:
-  exit(1)
-finally:
   display_empty()
+  exit(1)
