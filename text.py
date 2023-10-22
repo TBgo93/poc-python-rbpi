@@ -38,9 +38,9 @@ def display_text(WIDTH, HEIGHT):
 
   draw = ImageDraw.Draw(img)
 
-  font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
+  font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
 
-  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 14)
+  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
 
   draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
   draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
