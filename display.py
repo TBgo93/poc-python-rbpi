@@ -1,45 +1,23 @@
 #!/usr/bin/env python3
-import ST7789
-import RPi.GPIO as GPIO
-import threading
-import signal
+from ST7789 import ST7789
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
-from sys import exit
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
 
-BUTTONS = [5, 6, 16, 24]
-LABELS = ['A', 'B', 'X', 'Y']
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTONS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-def handle_button(pin):
-  label = LABELS[BUTTONS.index(pin)]
-
-  if label == "X":
-    print("X: Power OFF")
-  if label == "Y":
-    print("Y: Reboot")
-  if label == "A":
-    print("RemoteControl: A")
-  if label == "B":
-    print("RemoteControl: B")
-
 def init_display():
-  return ST7789.ST7789(
-    height=240,
-    width=240,
-    rotation=90,
+  return ST7789(
     port=0,
     cs=1,
     dc=9,
     backlight=13,
+    width=240,
+    height=240,
+    rotation=90,
     spi_speed_hz=60 * 1000 * 1000,
     offset_left=0,
     offset_top=0
@@ -89,10 +67,6 @@ def display_empty():
 
 
 def main():
-  # Handle buttons
-  for pin in BUTTONS:
-    GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
-
   # Create instance
   disp = init_display()
 
@@ -106,16 +80,3 @@ def main():
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
     sleep(1)
-
-exit_event = threading.Event()
-
-def signal_handler(signum, frame):
-  display_empty()
-  exit_event.set()
-
-if __name__ == "__main__":
-  signal.signal(signal.SIGINT, signal_handler)
-
-  t = threading.Thread(target=main)
-  t.start()
-  t.join()
