@@ -3,7 +3,6 @@ from ST7789 import ST7789
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
-from sys import exit
 
 from PIL import Image
 from PIL import ImageDraw
@@ -12,13 +11,14 @@ from PIL import ImageFont
 
 def init_display():
   ST7789.__init__(
-    height=240,
-    width=240,
-    rotation=90,
+    ST7789,
     port=0,
     cs=1,
     dc=9,
     backlight=13,
+    width=240,
+    height=240,
+    rotation=90,
     spi_speed_hz=60 * 1000 * 1000,
     offset_left=0,
     offset_top=0
