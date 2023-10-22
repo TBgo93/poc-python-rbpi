@@ -11,7 +11,7 @@ from PIL import ImageFont
 
 def init_display():
   ST7789.__init__(
-    ST7789,
+    self=ST7789,
     port=0,
     cs=1,
     dc=9,
