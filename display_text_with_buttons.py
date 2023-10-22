@@ -22,7 +22,9 @@ def handle_button(pin):
   label = LABELS[BUTTONS.index(pin)]
 
   if label == "X":
-    print("RemoteControl: X")
+    display_empty()
+    exit_event.set()
+    exit(1)
   if label == "Y":
     print("RemoteControl: Y")
   if label == "A":
