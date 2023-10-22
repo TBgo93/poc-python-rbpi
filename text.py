@@ -10,6 +10,8 @@ from PIL import ImageFont
 
 import ST7789
 
+exit_event = threading.Event()
+
 def init_display():
   return ST7789.ST7789(
     height=240,
@@ -86,6 +88,8 @@ def main():
 try:
   t = threading.Thread(target=main)
   t.start()
+  t.join()
 except (KeyboardInterrupt, SystemExit):
   display_empty()
+  exit_event.set()
   exit(1)
