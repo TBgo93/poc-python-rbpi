@@ -2,6 +2,7 @@
 import ST7789
 import RPi.GPIO as GPIO
 import threading
+import subprocess
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
@@ -22,9 +23,15 @@ def handle_button(pin):
   label = LABELS[BUTTONS.index(pin)]
 
   if label == "X":
-    print("RemoteControl: X")
+    print("X: Power OFF")
+    display_empty()
+    exit_event.set()
+    subprocess.call(['shutdown', '-h', 'now'], shell=False)
   if label == "Y":
-    print("RemoteControl: Y")
+    print("Y: Reboot")
+    display_empty()
+    exit_event.set()
+    subprocess.call(['shutdown', '-r', 'now'], shell=False)
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
