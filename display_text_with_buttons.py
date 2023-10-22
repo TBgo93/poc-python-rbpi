@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import ST7789
+import RPi.GPIO as GPIO
 import threading
+
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 from sys import exit
@@ -8,11 +11,6 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-import ST7789
-import signal
-import RPi.GPIO as GPIO
-
-exit_event = threading.Event()
 
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
@@ -30,8 +28,6 @@ def handle_button(pin):
     print("RemoteControl: A")
   if label == "B":
     print("RemoteControl: B")
-  
-  print("Button press detected on pin: {} label: {}".format(pin, label))
 
 def init_display():
   return ST7789.ST7789(
@@ -109,6 +105,7 @@ def main():
     disp.display(img)
     sleep(1)
 
+exit_event = threading.Event()
 
 try:
   t = threading.Thread(target=main)
