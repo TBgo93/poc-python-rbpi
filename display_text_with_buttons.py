@@ -2,6 +2,7 @@
 import ST7789
 import RPi.GPIO as GPIO
 import threading
+import signal
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
@@ -108,11 +109,13 @@ def main():
 
 exit_event = threading.Event()
 
-try:
+def signal_handler(signum, frame):
+  display_empty()
+  exit_event.set()
+
+if __name__ == "__main__":
+  signal.signal(signal.SIGINT, signal_handler)
+
   t = threading.Thread(target=main)
   t.start()
   t.join()
-except (KeyboardInterrupt, SystemExit):
-  display_empty()
-  exit_event.set()
-  exit(1)
