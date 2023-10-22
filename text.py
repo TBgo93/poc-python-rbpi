@@ -90,8 +90,8 @@ def main():
     disp.display(img)
     sleep(1)
 
-try:
+if __name__ == "__main__":
+  signal.signal(signal.SIGINT, signal_handler)
+
   t = threading.Thread(target=main)
   t.start()
-except KeyboardInterrupt:
-  print("KeyboardInterrupt")
