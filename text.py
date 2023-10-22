@@ -30,8 +30,8 @@ def display_text(WIDTH, HEIGHT):
   WLAN = NET.get("wlan0")[0]
 
   IP = "IP: " + str(WLAN.address)
-  CPU = "% Uso de CPU: " + str(cpu_percent())
-  RAM = "% Uso de RAM: " + str(VM.percent)
+  CPU = "Uso de CPU: " + str(cpu_percent()) + "%"
+  RAM = "Uso de RAM: " + str(VM.percent) + "%"
   TIME = strftime("%d/%m/%Y %H:%M:%S", localtime())
 
   img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
