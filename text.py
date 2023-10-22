@@ -2,7 +2,6 @@
 from time import sleep, localtime, strftime
 import threading
 from psutil import virtual_memory, net_if_addrs, cpu_percent
-import os
 
 from PIL import Image
 from PIL import ImageDraw
@@ -29,12 +28,12 @@ def display_text(WIDTH, HEIGHT):
   VM = virtual_memory()
   NET = net_if_addrs()
   WLAN = NET.get("wlan0")[0]
-  TEMP_COMMAND_RESULT = os.system("cat /sys/class/thermal/thermal_zone0/temp")
+  TEMP_COMMAND_RESULT = int(open('/sys/class/thermal/thermal_zone0/temp').read())
 
   IP = "IP: " + str(WLAN.address)
   CPU = "Uso de CPU: " + str(cpu_percent()) + "%"
   RAM = "Uso de RAM: " + str(VM.percent) + "%"
-  TEMP = "TEMP: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
+  TEMP = "Temp: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
   TIME = strftime("%d/%m/%Y %H:%M:%S", localtime())
 
   img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
