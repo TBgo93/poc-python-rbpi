@@ -52,6 +52,21 @@ def display_text(WIDTH, HEIGHT):
   draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
   return img
 
+def display_empty():
+  # Create instance
+  disp = init_display()
+
+  # Initialize display.
+  disp.begin()
+
+  WIDTH = disp.width
+  HEIGHT = disp.height
+  img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
+
+  draw = ImageDraw.Draw(img)
+  draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
+  disp.display(img)
+
 def main():
   # Create instance
   disp = init_display()
@@ -72,3 +87,5 @@ try:
   t.start()
 except KeyboardInterrupt:
   exit(1)
+finally:
+  display_empty()
