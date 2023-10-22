@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 import threading
-import signal
 from time import sleep, localtime, strftime
-from sys import exit
 from psutil import virtual_memory, net_if_addrs, cpu_percent
+from sys import exit
 
 from PIL import Image
 from PIL import ImageDraw
@@ -69,13 +68,7 @@ def display_empty():
   draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
   disp.display(img)
 
-def signal_handler(signal, frame):
-  print("Exiting...")
-  display_empty()
-  exit(0)
-
 def main():
-  signal.signal(signal.SIGINT, signal_handler)
   # Create instance
   disp = init_display()
 
@@ -90,8 +83,9 @@ def main():
     disp.display(img)
     sleep(1)
 
-if __name__ == "__main__":
-  signal.signal(signal.SIGINT, signal_handler)
-
+try:
   t = threading.Thread(target=main)
   t.start()
+except KeyboardInterrupt:
+  display_empty()
+  exit(1)
