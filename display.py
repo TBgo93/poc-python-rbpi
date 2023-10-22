@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import ST7789
+from ST7789 import ST7789
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
@@ -11,7 +11,7 @@ from PIL import ImageFont
 
 
 def init_display():
-  return ST7789.ST7789(
+  ST7789.__init__(
     height=240,
     width=240,
     rotation=90,
@@ -23,6 +23,7 @@ def init_display():
     offset_left=0,
     offset_top=0
   )
+  return ST7789
 
 def display_text(WIDTH, HEIGHT):
   VM = virtual_memory()
@@ -56,8 +57,8 @@ def display_empty():
   # Create instance
   disp = init_display()
 
-  # Initialize display.
-  disp.begin()
+  # # Initialize display.
+  # disp.begin()
 
   WIDTH = disp.width
   HEIGHT = disp.height
