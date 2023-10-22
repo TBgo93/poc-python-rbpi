@@ -10,8 +10,7 @@ from PIL import ImageFont
 
 
 def init_display():
-  ST7789.__init__(
-    self=ST7789,
+  return ST7789(
     port=0,
     cs=1,
     dc=9,
@@ -23,7 +22,6 @@ def init_display():
     offset_left=0,
     offset_top=0
   )
-  return ST7789
 
 def display_text(WIDTH, HEIGHT):
   VM = virtual_memory()
@@ -57,8 +55,8 @@ def display_empty():
   # Create instance
   disp = init_display()
 
-  # # Initialize display.
-  # disp.begin()
+  # Initialize display.
+  disp.begin()
 
   WIDTH = disp.width
   HEIGHT = disp.height
