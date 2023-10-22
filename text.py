@@ -85,7 +85,6 @@ def main():
 
 try:
   t = threading.Thread(target=main)
-  t.daemon = True
   t.start()
 except (KeyboardInterrupt, SystemExit):
   display_empty()
