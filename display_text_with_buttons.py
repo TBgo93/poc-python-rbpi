@@ -14,6 +14,7 @@ from PIL import ImageFont
 
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTONS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
@@ -112,6 +113,7 @@ try:
   t.start()
   t.join()
 except (KeyboardInterrupt, SystemExit):
+  print("[*] Exiting...")
   display_empty()
   exit_event.set()
   exit(1)
