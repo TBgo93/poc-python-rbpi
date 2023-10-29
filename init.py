@@ -22,13 +22,9 @@ if __name__ == "__main__":
   # Handle buttons
   for pin in BUTTONS:
     GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
-    print(GPIO.event_detected(pin))
     if pin == 5 | pin == 6:
       isExecutable = GPIO.event_detected(pin)
-  
-  def init():
-    main(isExecutable)
 
-  t = threading.Thread(target=init)
+  t = threading.Thread(target=main(isExecutable))
   t.start()
   t.join()
