@@ -85,4 +85,5 @@ def main():
       sleep(1)
     else: 
       sleep(5)
+      display_empty()
       main()
