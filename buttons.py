@@ -2,12 +2,15 @@ BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
 
 def handle_button(pin):
-  label = LABELS[BUTTONS.index(pin)]
+  index = BUTTONS.index(pin)
+  label = LABELS[index]
 
   if label == "X":
-    print("X: Power OFF")
+    print("X: Off display")
+    return False
   if label == "Y":
-    print("Y: Reboot")
+    print("Y: On display")
+    return True
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
