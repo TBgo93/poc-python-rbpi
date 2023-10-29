@@ -3,7 +3,7 @@ import signal
 import RPi.GPIO as GPIO
 
 from display import display_empty, main
-from buttons import handle_button, BUTTONS
+from buttons import handle_button, BUTTONS, LABELS
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTONS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -22,7 +22,8 @@ if __name__ == "__main__":
   # Handle buttons
   for pin in BUTTONS:
     GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
-    isExecutable = handle_button(pin)
+    if pin == 5 | pin == 6:
+      isExecutable = GPIO.event_detected(pin)
 
   t = threading.Thread(target=main(isExecutable))
   t.start()

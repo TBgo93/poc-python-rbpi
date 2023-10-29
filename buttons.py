@@ -7,10 +7,8 @@ def handle_button(pin):
 
   if label == "X":
     print("X: Off display")
-    return False
   if label == "Y":
     print("Y: On display")
-    return True
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
