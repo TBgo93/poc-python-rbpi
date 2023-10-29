@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-from ST7789 import ST7789
+from buttons import isExecutable
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
+
+from ST7789 import ST7789
 
 from PIL import Image
 from PIL import ImageDraw
@@ -67,6 +69,7 @@ def display_empty():
 
 
 def main():
+  global isExecutable
   # Create instance
   disp = init_display()
 
@@ -76,7 +79,7 @@ def main():
   WIDTH = disp.width
   HEIGHT = disp.height
 
-  while True:
+  while isExecutable:
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
     sleep(1)
