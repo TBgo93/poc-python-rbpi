@@ -66,7 +66,7 @@ def display_empty():
   disp.display(img)
 
 
-def main(isExecutable: bool = True):
+def main(isExecutable: bool):
   # Create instance
   disp = init_display()
 
