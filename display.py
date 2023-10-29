@@ -68,10 +68,9 @@ def display_empty():
   disp.display(img)
 
 
-def main():
-  isExecutable = globals()["isExecutable"]
-  print(isExecutable)
+isExecutable = globals()["isExecutable"]
 
+def main():
   # Create instance
   disp = init_display()
 
