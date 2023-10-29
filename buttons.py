@@ -9,11 +9,11 @@ def handle_button(pin):
   label = LABELS[index]
 
   if label == "X":
-    print("X: Off display")
+    print("X: Display off")
     settings.is_executable = False
     display_empty()
   if label == "Y":
-    print("Y: On display")
+    print("Y: Display on")
     settings.is_executable = True
   if label == "A":
     print("RemoteControl: A")

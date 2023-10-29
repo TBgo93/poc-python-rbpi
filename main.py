@@ -7,6 +7,7 @@ import settings
 from display import display_empty, main
 from buttons import handle_button, BUTTONS
 
+# Init global vars
 settings.init()
 
 GPIO.setmode(GPIO.BCM)
