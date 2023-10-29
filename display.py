@@ -3,6 +3,7 @@ from ST7789 import ST7789
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
+from buttons import isExecutable
 
 from PIL import Image
 from PIL import ImageDraw
@@ -66,7 +67,7 @@ def display_empty():
   disp.display(img)
 
 
-def main(isExecutable: bool):
+def main():
   # Create instance
   disp = init_display()
 
