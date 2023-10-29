@@ -10,8 +10,13 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 
+FONT_TEXT = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
+FONT_DATETIME = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
+COLOR_TEXT = (255, 255, 255)
+COLOR_BG = (0, 0, 0)
+
 def init_display():
-  return ST7789(
+  disp = ST7789(
     port=0,
     cs=1,
     dc=9,
@@ -23,8 +28,11 @@ def init_display():
     offset_left=0,
     offset_top=0
   )
+  disp.begin()
 
-def display_text(WIDTH, HEIGHT):
+  return disp
+
+def text_display():
   VM = virtual_memory()
   NET = net_if_addrs()
   WLAN = NET.get("wlan0")[0]
@@ -36,54 +44,40 @@ def display_text(WIDTH, HEIGHT):
   TEMP = "Temp: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
   TIME = strftime("%d/%m/%y %H:%M:%S", localtime())
 
-  img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
-
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   draw = ImageDraw.Draw(img)
 
-  font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
+  draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
+  draw.text((5, 1), IP, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 31), CPU, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 61), RAM, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 91), TEMP, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 220), TIME, font=FONT_DATETIME, fill=COLOR_TEXT)
 
-  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
-
-  draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
-  draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
-  draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
-  draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
-  draw.text((5, 91), TEMP, font=font, fill=(255, 255, 255))
-  draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
   return img
 
 
-def display_empty():
-  # Create instance
-  disp = init_display()
-
-  # Initialize display.
-  disp.begin()
-
-  WIDTH = disp.width
-  HEIGHT = disp.height
-  img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
-
+def empty_display():
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   ImageDraw.Draw(img)
+
+  return img
+
+def draw_display(fn, disp):
+  img = fn()
   disp.display(img)
 
 
 def main():
-  # Create instance
+  # Create instance and initialize display
   disp = init_display()
-
-  # Initialize display.
-  disp.begin()
-
-  WIDTH = disp.width
-  HEIGHT = disp.height
 
   while True:
     if settings.is_executable: 
-      img = display_text(WIDTH, HEIGHT)
-      disp.display(img)
+      draw_display(text_display, disp)
       sleep(1)
     else: 
+      draw_display(empty_display, disp)
       sleep(5)
-      display_empty()
+
       main()
