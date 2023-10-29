@@ -16,13 +16,13 @@ def signal_handler(signum, frame):
   exit_event.set()
   sys.exit(1)
 
-if __name__ == "__main__":
-  signal.signal(signal.SIGINT, signal_handler)
 
-  # Handle buttons
-  for pin in BUTTONS:
-    GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
+signal.signal(signal.SIGINT, signal_handler)
 
-  t = threading.Thread(target=main)
-  t.start()
-  t.join()
+# Handle buttons
+for pin in BUTTONS:
+  GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
+
+t = threading.Thread(target=main)
+t.start()
+t.join()
