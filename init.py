@@ -22,7 +22,7 @@ if __name__ == "__main__":
   # Handle buttons
   for pin in BUTTONS:
     GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
-
+  print(isExecutable)
   t = threading.Thread(target=main, args=[isExecutable])
   t.start()
   t.join()
