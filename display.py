@@ -63,7 +63,7 @@ def empty_display():
 
   return img
 
-def draw_display(fn: function, disp):
+def draw_display(fn, disp):
   img = fn()
   disp.display(img)
 
