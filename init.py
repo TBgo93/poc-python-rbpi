@@ -1,5 +1,6 @@
 import threading
 import signal
+import sys
 import RPi.GPIO as GPIO
 
 from display import display_empty, main
@@ -13,6 +14,7 @@ exit_event = threading.Event()
 def signal_handler(signum, frame):
   display_empty()
   exit_event.set()
+  sys.exit(1)
 
 if __name__ == "__main__":
   signal.signal(signal.SIGINT, signal_handler)

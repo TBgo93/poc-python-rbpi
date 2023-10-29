@@ -76,7 +76,7 @@ def main():
 
   WIDTH = disp.width
   HEIGHT = disp.height
-
+  print(isExecutable)
   while isExecutable:
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
