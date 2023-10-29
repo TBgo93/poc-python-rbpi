@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from settings import is_executable, display_width, display_height
+from settings import is_executable, DISPLAY_WIDTH, DISPLAY_HEIGHT
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
@@ -9,6 +9,11 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
+
+FONT_TEXT = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
+FONT_DATETIME = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
+COLOR_TEXT = (255, 255, 255)
+COLOR_BG = (0, 0, 0)
 
 def init_display():
   disp = ST7789(
@@ -39,27 +44,23 @@ def text_display():
   TEMP = "Temp: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
   TIME = strftime("%d/%m/%y %H:%M:%S", localtime())
 
-  img = Image.new('RGB', (display_width, display_height), color=(0, 0, 0))
-
+  img = Image.new('RGB', (DISPLAY_WIDTH, DISPLAY_HEIGHT), color=COLOR_BG)
   draw = ImageDraw.Draw(img)
 
-  font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
+  draw.rectangle((0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT), COLOR_BG)
+  draw.text((5, 1), IP, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 31), CPU, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 61), RAM, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 91), TEMP, font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 220), TIME, font=FONT_DATETIME, fill=COLOR_TEXT)
 
-  font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
-
-  draw.rectangle((0, 0, display_width, display_height), (0, 0, 0))
-  draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
-  draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
-  draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
-  draw.text((5, 91), TEMP, font=font, fill=(255, 255, 255))
-  draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
   return img
 
 
 def empty_display():
-  img = Image.new('RGB', (display_width, display_height), color=(0, 0, 0))
-
+  img = Image.new('RGB', (DISPLAY_WIDTH, DISPLAY_HEIGHT), color=COLOR_BG)
   ImageDraw.Draw(img)
+
   return img
 
 def draw_display(fn: function, disp):
