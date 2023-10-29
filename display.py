@@ -8,6 +8,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
+global is_executable
 is_executable = True
 
 def init_display():
