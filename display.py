@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-from ST7789 import ST7789
-
+import settings
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
+
+from ST7789 import ST7789
 
 from PIL import Image
 from PIL import ImageDraw
@@ -51,6 +52,7 @@ def display_text(WIDTH, HEIGHT):
   draw.text((5, 220), TIME, font=font_datetime, fill=(255, 255, 255))
   return img
 
+
 def display_empty():
   # Create instance
   disp = init_display()
@@ -77,6 +79,10 @@ def main():
   HEIGHT = disp.height
 
   while True:
-    img = display_text(WIDTH, HEIGHT)
-    disp.display(img)
-    sleep(1)
+    if settings.is_executable: 
+      img = display_text(WIDTH, HEIGHT)
+      disp.display(img)
+      sleep(1)
+    else: 
+      sleep(5)
+      main()

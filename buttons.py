@@ -1,13 +1,20 @@
+import settings
+from display import display_empty
+
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
 
 def handle_button(pin):
-  label = LABELS[BUTTONS.index(pin)]
+  index = BUTTONS.index(pin)
+  label = LABELS[index]
 
   if label == "X":
-    print("X: Power OFF")
+    print("X: Display off")
+    settings.is_executable = False
+    display_empty()
   if label == "Y":
-    print("Y: Reboot")
+    print("Y: Display on")
+    settings.is_executable = True
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
