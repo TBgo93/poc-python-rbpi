@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import settings
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
@@ -8,8 +9,6 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-global is_executable
-is_executable = True
 
 def init_display():
   return ST7789(
@@ -80,7 +79,7 @@ def main():
   HEIGHT = disp.height
 
   while True:
-    if is_executable: 
+    if settings.is_executable: 
       img = display_text(WIDTH, HEIGHT)
       disp.display(img)
       sleep(1)
