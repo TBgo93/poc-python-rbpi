@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import settings
+from settings import is_executable, display_width, display_height
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
@@ -11,7 +11,7 @@ from PIL import ImageFont
 
 
 def init_display():
-  return ST7789(
+  disp = ST7789(
     port=0,
     cs=1,
     dc=9,
@@ -23,8 +23,11 @@ def init_display():
     offset_left=0,
     offset_top=0
   )
+  disp.begin()
 
-def display_text(WIDTH, HEIGHT):
+  return disp
+
+def text_display():
   VM = virtual_memory()
   NET = net_if_addrs()
   WLAN = NET.get("wlan0")[0]
@@ -36,7 +39,7 @@ def display_text(WIDTH, HEIGHT):
   TEMP = "Temp: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
   TIME = strftime("%d/%m/%y %H:%M:%S", localtime())
 
-  img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
+  img = Image.new('RGB', (display_width, display_height), color=(0, 0, 0))
 
   draw = ImageDraw.Draw(img)
 
@@ -44,7 +47,7 @@ def display_text(WIDTH, HEIGHT):
 
   font_datetime = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
 
-  draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
+  draw.rectangle((0, 0, display_width, display_height), (0, 0, 0))
   draw.text((5, 1), IP, font=font, fill=(255, 255, 255))
   draw.text((5, 31), CPU, font=font, fill=(255, 255, 255))
   draw.text((5, 61), RAM, font=font, fill=(255, 255, 255))
@@ -53,37 +56,27 @@ def display_text(WIDTH, HEIGHT):
   return img
 
 
-def display_empty():
-  # Create instance
-  disp = init_display()
-
-  # Initialize display.
-  disp.begin()
-
-  WIDTH = disp.width
-  HEIGHT = disp.height
-  img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
+def empty_display():
+  img = Image.new('RGB', (display_width, display_height), color=(0, 0, 0))
 
   ImageDraw.Draw(img)
+  return img
+
+def draw_display(fn: function, disp):
+  img = fn()
   disp.display(img)
 
 
 def main():
-  # Create instance
+  # Create instance and initialize display
   disp = init_display()
 
-  # Initialize display.
-  disp.begin()
-
-  WIDTH = disp.width
-  HEIGHT = disp.height
-
   while True:
-    if settings.is_executable: 
-      img = display_text(WIDTH, HEIGHT)
-      disp.display(img)
+    if is_executable: 
+      draw_display(text_display, disp)
       sleep(1)
     else: 
+      draw_display(empty_display, disp)
       sleep(5)
-      display_empty()
+
       main()
