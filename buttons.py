@@ -1,10 +1,10 @@
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
 
+isExecutable = True
 
 def handle_button(pin):
   global isExecutable
-  isExecutable = True
 
   index = BUTTONS.index(pin)
   label = LABELS[index]
