@@ -2,9 +2,12 @@ import threading
 import signal
 import sys
 import RPi.GPIO as GPIO
+import settings
 
 from display import display_empty, main
 from buttons import handle_button, BUTTONS
+
+settings.init()
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTONS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
