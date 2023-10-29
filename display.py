@@ -3,7 +3,6 @@ from ST7789 import ST7789
 
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
-from buttons import isExecutable
 
 from PIL import Image
 from PIL import ImageDraw
@@ -76,8 +75,8 @@ def main():
 
   WIDTH = disp.width
   HEIGHT = disp.height
-  print(isExecutable)
-  while isExecutable:
+
+  while True:
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
     sleep(1)
