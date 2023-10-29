@@ -11,11 +11,9 @@ def handle_button(pin):
   if label == "X":
     print("X: Off display")
     isExecutable = False
-    print(isExecutable)
   if label == "Y":
     print("Y: On display")
     isExecutable = True
-    print(isExecutable)
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
