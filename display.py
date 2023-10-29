@@ -68,6 +68,7 @@ def display_empty():
 
 
 def main(isExecutable):
+  print(isExecutable)
   # Create instance
   disp = init_display()
 
