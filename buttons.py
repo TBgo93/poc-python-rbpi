@@ -1,7 +1,7 @@
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
 
-isExecutable: bool
+isExecutable = True
 
 def handle_button(pin):
   global isExecutable
