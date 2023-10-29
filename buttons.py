@@ -1,19 +1,17 @@
 BUTTONS = [5, 6, 16, 24]
 LABELS = ['A', 'B', 'X', 'Y']
 
-isExecutable = False
-
 def handle_button(pin):
-  global isExecutable
+  global is_executable
   index = BUTTONS.index(pin)
   label = LABELS[index]
 
   if label == "X":
     print("X: Off display")
-    isExecutable = False
+    is_executable = False
   if label == "Y":
     print("Y: On display")
-    isExecutable = True
+    is_executable = True
   if label == "A":
     print("RemoteControl: A")
   if label == "B":
