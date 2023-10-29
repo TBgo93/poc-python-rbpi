@@ -66,7 +66,7 @@ def display_empty():
   disp.display(img)
 
 
-def main():
+def main(isExecutable: bool):
   # Create instance
   disp = init_display()
 
@@ -76,7 +76,7 @@ def main():
   WIDTH = disp.width
   HEIGHT = disp.height
 
-  while True:
+  while isExecutable:
     img = display_text(WIDTH, HEIGHT)
     disp.display(img)
     sleep(1)

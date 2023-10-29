@@ -13,14 +13,17 @@ exit_event = threading.Event()
 def signal_handler(signum, frame):
   display_empty()
   exit_event.set()
+  return False
 
 if __name__ == "__main__":
-  signal.signal(signal.SIGINT, signal_handler)
+  isExecutable = True
+
+  isExecutable = signal.signal(signal.SIGINT, signal_handler)
 
   # Handle buttons
   for pin in BUTTONS:
     GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
 
-  t = threading.Thread(target=main)
+  t = threading.Thread(target=main(isExecutable))
   t.start()
   t.join()
