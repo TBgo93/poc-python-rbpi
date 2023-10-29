@@ -85,4 +85,5 @@ def main():
       disp.display(img)
       sleep(1)
     else: 
+      sleep(1)
       main()
