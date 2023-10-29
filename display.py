@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from settings import is_executable, DISPLAY_WIDTH, DISPLAY_HEIGHT
+import settings
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
@@ -44,10 +44,10 @@ def text_display():
   TEMP = "Temp: " + str(TEMP_COMMAND_RESULT / 1000) +"°C"
   TIME = strftime("%d/%m/%y %H:%M:%S", localtime())
 
-  img = Image.new('RGB', (DISPLAY_WIDTH, DISPLAY_HEIGHT), color=COLOR_BG)
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   draw = ImageDraw.Draw(img)
 
-  draw.rectangle((0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT), COLOR_BG)
+  draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
   draw.text((5, 1), IP, font=FONT_TEXT, fill=COLOR_TEXT)
   draw.text((5, 31), CPU, font=FONT_TEXT, fill=COLOR_TEXT)
   draw.text((5, 61), RAM, font=FONT_TEXT, fill=COLOR_TEXT)
@@ -58,7 +58,7 @@ def text_display():
 
 
 def empty_display():
-  img = Image.new('RGB', (DISPLAY_WIDTH, DISPLAY_HEIGHT), color=COLOR_BG)
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   ImageDraw.Draw(img)
 
   return img
@@ -73,7 +73,7 @@ def main():
   disp = init_display()
 
   while True:
-    if is_executable: 
+    if settings.is_executable: 
       draw_display(text_display, disp)
       sleep(1)
     else: 
