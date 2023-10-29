@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from buttons import isExecutable
+
 from time import sleep, localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
@@ -67,7 +69,7 @@ def display_empty():
   disp.display(img)
 
 
-def main(isExecutable):
+def main():
   # Create instance
   disp = init_display()
 
@@ -77,7 +79,10 @@ def main(isExecutable):
   WIDTH = disp.width
   HEIGHT = disp.height
 
-  while isExecutable:
-    img = display_text(WIDTH, HEIGHT)
-    disp.display(img)
-    sleep(1)
+  while True:
+    if isExecutable: 
+      img = display_text(WIDTH, HEIGHT)
+      disp.display(img)
+      sleep(1)
+    else: 
+      main()
