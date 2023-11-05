@@ -4,7 +4,9 @@ import sys
 import RPi.GPIO as GPIO
 import settings
 
-from display import init_display, empty_display, draw_display, main
+from time import sleep
+
+from display import init_display, empty, draw_display, stats, on_off
 from buttons import handle_button, BUTTONS
 
 # Init global vars
@@ -19,7 +21,7 @@ def signal_handler(signum, frame):
   # Create instance and initialize display
   disp = init_display()
   # Draw display
-  draw_display(empty_display, disp)
+  draw_display(empty, disp)
 
   exit_event.set()
   sys.exit(1)
@@ -30,6 +32,26 @@ signal.signal(signal.SIGINT, signal_handler)
 # Handle buttons
 for pin in BUTTONS:
   GPIO.add_event_detect(pin, GPIO.FALLING, handle_button, bouncetime=100)
+
+def main():
+  # Create instance and initialize display
+  disp = init_display()
+
+  while True:
+    if settings.shutdown:
+      draw_display(on_off, disp)
+      sleep(3)
+      draw_display(empty, disp)
+      break
+
+    if settings.is_executable: 
+      draw_display(stats, disp)
+      sleep(1)
+    else: 
+      draw_display(empty, disp)
+      sleep(5)
+
+      main()
 
 t = threading.Thread(target=main)
 t.start()

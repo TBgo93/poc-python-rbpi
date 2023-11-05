@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import settings
-from time import sleep, localtime, strftime
+from time import localtime, strftime
 from psutil import virtual_memory, net_if_addrs, cpu_percent
 
 from ST7789 import ST7789
@@ -32,7 +32,7 @@ def init_display():
 
   return disp
 
-def text_display():
+def stats():
   VM = virtual_memory()
   NET = net_if_addrs()
   WLAN = NET.get("wlan0")[0]
@@ -56,28 +56,21 @@ def text_display():
 
   return img
 
-
-def empty_display():
+def empty():
   img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   ImageDraw.Draw(img)
+
+  return img
+
+def on_off():
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
+  draw = ImageDraw.Draw(img)
+
+  draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
+  draw.text((5, 110), "Shutdown rpb...", font=FONT_TEXT, fill=COLOR_TEXT)
 
   return img
 
 def draw_display(fn, disp):
   img = fn()
   disp.display(img)
-
-
-def main():
-  # Create instance and initialize display
-  disp = init_display()
-
-  while True:
-    if settings.is_executable: 
-      draw_display(text_display, disp)
-      sleep(1)
-    else: 
-      draw_display(empty_display, disp)
-      sleep(5)
-
-      main()
