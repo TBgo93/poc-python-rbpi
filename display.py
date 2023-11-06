@@ -28,7 +28,6 @@ def init_display():
     offset_left=0,
     offset_top=0
   )
-  disp.begin()
 
   return disp
 
