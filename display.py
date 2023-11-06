@@ -67,7 +67,8 @@ def power_off():
   draw = ImageDraw.Draw(img)
 
   draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
-  draw.text((5, 110), "The system will power off now!", font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 91), "The system will", font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 111), "power off now!", font=FONT_TEXT, fill=COLOR_TEXT)
 
   return img
 
