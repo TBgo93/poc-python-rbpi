@@ -7,7 +7,7 @@ import settings
 
 from time import sleep
 
-from display import init_display, empty, draw_display, stats, power_off
+from display import init_display, empty, draw_display, stats, power_off_rpb, reset_rpb
 from buttons import handle_button, BUTTONS
 
 # Init global vars
@@ -40,10 +40,16 @@ def main():
 
   while True:
     if settings.shutdown:
-      draw_display(power_off, disp)
+      draw_display(power_off_rpb, disp)
       sleep(3)
       draw_display(empty, disp)
       subprocess.run(["sudo", "shutdown", "-h", "now"]) 
+      break
+    if settings.reset:
+      draw_display(reset_rpb, disp)
+      sleep(3)
+      draw_display(empty, disp)
+      subprocess.run(["sudo", "shutdown", "-r", "now"]) 
       break
 
     if settings.is_executable: 
@@ -52,7 +58,6 @@ def main():
     else: 
       draw_display(empty, disp)
       sleep(5)
-
       main()
 
 t = threading.Thread(target=main)

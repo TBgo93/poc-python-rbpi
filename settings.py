@@ -4,6 +4,9 @@ def init():
 
   global shutdown
   shutdown = False
+
+  global reset
+  reset = False
   
   global DISPLAY_WIDTH
   DISPLAY_WIDTH = 240

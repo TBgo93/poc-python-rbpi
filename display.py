@@ -61,13 +61,23 @@ def empty():
 
   return img
 
-def power_off():
+def power_off_rpb():
   img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   draw = ImageDraw.Draw(img)
 
   draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
   draw.text((5, 91), "The system will", font=FONT_TEXT, fill=COLOR_TEXT)
   draw.text((5, 111), "power off now!", font=FONT_TEXT, fill=COLOR_TEXT)
+
+  return img
+
+def reset_rpb():
+  img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
+  draw = ImageDraw.Draw(img)
+
+  draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
+  draw.text((5, 91), "The system will", font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 111), "reboot now!", font=FONT_TEXT, fill=COLOR_TEXT)
 
   return img
 
