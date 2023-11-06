@@ -1,12 +1,13 @@
 import threading
 import signal
 import sys
+import subprocess
 import RPi.GPIO as GPIO
 import settings
 
 from time import sleep
 
-from display import init_display, empty, draw_display, stats, on_off
+from display import init_display, empty, draw_display, stats, power_off
 from buttons import handle_button, BUTTONS
 
 # Init global vars
@@ -39,9 +40,10 @@ def main():
 
   while True:
     if settings.shutdown:
-      draw_display(on_off, disp)
+      draw_display(power_off, disp)
       sleep(3)
       draw_display(empty, disp)
+      subprocess.run(["sudo", "shutdown", "-h", "now"]) 
       break
 
     if settings.is_executable: 

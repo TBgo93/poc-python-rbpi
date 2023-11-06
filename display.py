@@ -62,12 +62,12 @@ def empty():
 
   return img
 
-def on_off():
+def power_off():
   img = Image.new('RGB', (settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), color=COLOR_BG)
   draw = ImageDraw.Draw(img)
 
   draw.rectangle((0, 0, settings.DISPLAY_WIDTH, settings.DISPLAY_HEIGHT), COLOR_BG)
-  draw.text((5, 110), "Shutdown rpb...", font=FONT_TEXT, fill=COLOR_TEXT)
+  draw.text((5, 110), "The system will power off now!", font=FONT_TEXT, fill=COLOR_TEXT)
 
   return img
 
