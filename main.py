@@ -41,15 +41,17 @@ def main():
   while True:
     if settings.shutdown:
       draw_display(power_off_rpb, disp)
-      sleep(3)
+      sleep(2)
       draw_display(empty, disp)
-      subprocess.run(["sudo", "shutdown", "-h", "now"]) 
+      subprocess.run(["sudo", "shutdown", "-h", "now"])
+      settings.shutdown = False
       break
     if settings.reset:
       draw_display(reset_rpb, disp)
-      sleep(3)
+      sleep(2)
       draw_display(empty, disp)
       subprocess.run(["sudo", "shutdown", "-r", "now"]) 
+      settings.reset = False
       break
 
     if settings.is_executable: 
