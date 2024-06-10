@@ -3,8 +3,10 @@ Nuitka==1.8.6
 ordered-set==4.1.0
 packaging==23.2
 pefile==2023.2.7
-pyinstaller==6.2.0
-pyinstaller-hooks-contrib==2023.10
+pyinstaller==6.8.0
+pyinstaller-hooks-contrib==2024.7
 pywin32-ctypes==0.2.2
 setuptools==68.2.2
 zstandard==0.22.0
+RPi.GPIO==0.7.1
+st7789==0.0.4
